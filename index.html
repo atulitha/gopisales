@@ -11,7 +11,7 @@
       background-color: #fffdf7;
     }
     .hero {
-      background: url('https://images.unsplash.com/photo-1611066622737-0937f018f1e1') center/cover no-repeat;
+      background: url('https://images.unsplash.com/photo-1611066622737-0937f018f1e1?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       height: 60vh;
       color: white;
       display: flex;
@@ -68,10 +68,10 @@
   <div class="container py-5">
     <div class="row g-4">
 
-      <!-- Masala Card 1 -->
+      <!-- Turmeric -->
       <div class="col-md-4">
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1615485735627-15c1e730967e" class="card-img-top" alt="Turmeric">
+          <img src="https://images.unsplash.com/photo-1615485735627-15c1e730967e?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Turmeric">
           <div class="card-body">
             <h5 class="card-title">Organic Turmeric Powder</h5>
             <p class="card-text text-muted">₹80 / 100g</p>
@@ -80,10 +80,10 @@
         </div>
       </div>
 
-      <!-- Masala Card 2 -->
+      <!-- Red Chili -->
       <div class="col-md-4">
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1629121883589-7cb8a2eaef47" class="card-img-top" alt="Chili">
+          <img src="https://images.unsplash.com/photo-1629121883589-7cb8a2eaef47?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Red Chilli">
           <div class="card-body">
             <h5 class="card-title">Red Chilli Powder</h5>
             <p class="card-text text-muted">₹70 / 100g</p>
@@ -92,13 +92,49 @@
         </div>
       </div>
 
-      <!-- Masala Card 3 -->
+      <!-- Garam Masala -->
       <div class="col-md-4">
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1576402187878-b94c7ff62b09" class="card-img-top" alt="Garam Masala">
+          <img src="https://images.unsplash.com/photo-1576402187878-b94c7ff62b09?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Garam Masala">
           <div class="card-body">
             <h5 class="card-title">Premium Garam Masala</h5>
             <p class="card-text text-muted">₹120 / 100g</p>
+            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Whole Spices -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1622058162447-b7de35ff5b46?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Whole Spices">
+          <div class="card-body">
+            <h5 class="card-title">Whole Masala Mix</h5>
+            <p class="card-text text-muted">₹130 / 150g</p>
+            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coriander -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1589308078054-832cab71c78f?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Coriander">
+          <div class="card-body">
+            <h5 class="card-title">Coriander Powder</h5>
+            <p class="card-text text-muted">₹60 / 100g</p>
+            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cumin -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1631815558567-8c77818d3e4d?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cumin Seeds">
+          <div class="card-body">
+            <h5 class="card-title">Cumin Seeds (Jeera)</h5>
+            <p class="card-text text-muted">₹75 / 100g</p>
             <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
           </div>
         </div>
@@ -120,10 +156,3 @@
       cartItems++;
       document.getElementById("cartCount").textContent = cartItems;
     }
-    function showCartCount() {
-      alert("🛒 Items in Cart: " + cartItems);
-    }
-  </script>
-
-</body>
-</html>
