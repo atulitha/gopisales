@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Native Masala Spices at Best Price!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fffdf7;
+        }
+
+        .hero {
+            background: url('masala1.jpg?auto=format&fit=crop&w=720&q=80') no-repeat;
+            background-size: cover;
+
+            /* ✅ Change this value to adjust image crop manually */
+            background-position: center center; /* options: center top / center center / center bottom */
+
+            height: 60vh;
+            color: white;
+            text-shadow: 2px 2px 6px #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero .content {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+
+            /* 👇 You can adjust this manually */
+            top: 60%; /* Change this to move up/down as needed */
+        }
+
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        footer {
+            background-color: #d2691e;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 7px;
+            font-size: 12px;
+        }
+
+        .bg-image {
+            background: url('masala2.jpg') center/cover no-repeat;
+            padding: 3rem 1rem;
+            border-radius: 8px;
+            background-attachment: fixed;
+            color: #fff; /* optional for contrast */
+        }
+
+        .bg-section {
+            position: relative;
+            overflow: hidden;
+            padding: 3rem 0;
+            color: #fff;
+            z-index: 0;
+        }
+
+        .bg-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('masala2.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+            filter: blur(2px);
+            z-index: -1;
+            transform: scale(1.05); /* optional: helps hide blur edges */
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+            <img src="logo.jpeg" alt="Logo" width="32" height="32" class="rounded-circle">
+            Native Masala
+        </a>
+
+        <div class="ms-auto position-relative">
+            <button class="btn btn-dark position-relative" onclick="showCartCount()">
+                Cart 🛒
+                <span id="cartCount" class="cart-count">0</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Banner -->
+<div class="hero text-center">
+    <div>
+        <h1 class="display-4 fw-bold">Spice Up Your Kitchen!</h1>
+        <p class="lead">Fresh, Aromatic, and Authentic Masalas Delivered to You</p>
+    </div>
+</div>
+
+<!-- Product Section -->
+<div class="bg-section ">
+    <div class="container py-5">
+        <div class="row g-4">
+
+            <!-- Turmeric -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="turmutic.jpg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Turmeric">
+                    <div class="card-body">
+                        <h5 class="card-title">Organic Turmeric Powder</h5>
+                        <p class="card-text text-muted">₹80 / 100g</p>
+                        <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Red Chili -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="spice.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Red Chilli">
+                    <div class="card-body">
+                        <h5 class="card-title">Red Chilli Powder</h5>
+                        <p class="card-text text-muted">₹70 / 100g</p>
+                        <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Garam Masala -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="maslala.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Garam Masala">
+                    <div class="card-body">
+                        <h5 class="card-title">Premium Garam Masala</h5>
+                        <p class="card-text text-muted">₹120 / 100g</p>
+                        <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Whole Spices -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="maslala.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Whole Spices">
+                    <div class="card-body">
+                        <h5 class="card-title">Whole Masala Mix</h5>
+                        <p class="card-text text-muted">₹130 / 150g</p>
+                        <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coriander -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="coriander.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Coriander">
+                    <div class="card-body">
+                        <h5 class="card-title">Coriander Powder</h5>
+                        <p class="card-text text-muted">₹60 / 100g</p>
+                        <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cumin -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="jira.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cumin Seeds">
+                    <div class="card-body">
+                        <h5 class="card-title">Cumin Seeds (Jeera)</h5>
+                        <p class="card-text text-muted">₹75 / 100g</p>
+                        <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>© 2025 Masala Sale eCart. Crafted with ❤️ for spice lovers.</p>
+</footer>
+
+<!-- Bootstrap JS + Cart Logic -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let cartItems = 0;
+
+    function addToCart() {
+        cartItems++;
+        document.getElementById("cartCount").textContent = cartItems;
+    }
