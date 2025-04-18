@@ -86,9 +86,12 @@
             left: 0;
             background: url('masala2.jpg') center/cover no-repeat;
             background-attachment: fixed;
-            filter: blur(0.001px);
+            /*filter: blur(-0.1px);?*/
+            /*filter: opacity(100%);*/
             z-index: -1;
-            transform: scale(0.99); /* optional: helps hide blur edges */
+            /*transform: scale(0.99); !* optional: helps hide blur edges *!*/
+            background-color: rgba(0, 0, 0, 0.3);
+            background-blend-mode: darken;
         }
 
     </style>
