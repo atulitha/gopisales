@@ -3,160 +3,233 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Buy authentic, organic, and traditional Indian masalas online. Delivered fresh to your kitchen.">
+  <meta name="keywords" content="masala, spices, Indian spices, organic masala, turmeric, garam masala, red chilli powder">
+  <meta property="og:title" content="Native Masala - Organic Spices at Best Price">
+  <meta property="og:description" content="Spice up your meals with premium handpicked Indian masalas. Order now!">
+  <meta property="og:image" content="logo.jpeg">
+  <meta property="og:type" content="website">
   <title>Native Masala Spices at Best Price!</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #fffdf7;
     }
+
     .hero {
-      background: url('kitchen.jpg?auto=format&fit=crop&w=1600&q=80') top center/cover no-repeat;
+      background: url('kitchen2.jpg?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       height: 60vh;
       color: white;
       display: flex;
-      align-items: top;
+      align-items: center;
       justify-content: center;
       text-shadow: 2px 2px 6px #000;
+      text-align: center;
+      animation-delay: 0.2s;
     }
+
     .card img {
       height: 200px;
       object-fit: cover;
     }
+
     footer {
       background-color: #d2691e;
       color: #fff;
       padding: 20px;
       text-align: center;
     }
-    .cart-count {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 3px 7px;
-      font-size: 12px;
+
+    section {
+      padding: 40px 0;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    /* === Transition Effects === */
+
+    /* Fade-in animation */
+    section, .hero, .card {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.02);
+      opacity: 0.95;
+    }
+
+    .table tbody tr:hover {
+      background-color: #fff9e6;
+      transition: background-color 0.3s ease;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning sticky-top">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-  <img src="logo.jpeg" alt="Logo" width="32" height="32" class="rounded-circle">
-  Native Masala
-</a>
-
-      <div class="ms-auto position-relative">
-        <button class="btn btn-dark position-relative" onclick="showCartCount()">
-          Cart
-          <span id="cartCount" class="cart-count start-90 bg-danger">1</span>
-        </button>
-      </div>
+        <img src="logo.jpeg" alt="Native Masala Logo" width="32" height="32" class="rounded-circle">
+        Native Masala
+      </a>
     </div>
   </nav>
 
   <!-- Hero Banner -->
-  <div class="hero text-center">
+  <div class="hero">
     <div>
       <h1 class="display-4 fw-bold">Spice Up Your Kitchen!</h1>
       <p class="lead">Fresh, Aromatic, and Authentic Masalas Delivered to You</p>
     </div>
   </div>
 
-  <!-- Product Section -->
+  <!-- About Us Section -->
+  <section class="bg-light" id="about">
+    <div class="container text-center">
+      <h2 class="mb-4">About Us</h2>
+      <p class="mx-auto" style="max-width: 720px;">
+        Native Masala is a proud Tamil Nadu-based brand committed to reviving the authentic flavors of traditional Indian spices. We source only the finest organic raw materials directly from native Tamil Nadu farmers, ensuring every ingredient is pure, chemical-free, and responsibly grown. Each batch undergoes rigorous quality checks to uphold our promise of excellence. With deep expertise in recreating the nostalgic taste of the good olden days, our masalas are crafted in a hygienic, well-maintained production environment. We believe that great quality shouldn't come at a high cost—our products are priced affordably to bring the taste of tradition to every kitchen.
+        </p>
+    </div>
+  </section>
+
+  <!-- Product Cards Section -->
   <div class="container py-5">
     <div class="row g-4">
-
-      <!-- Turmeric -->
+      <!-- Repeatable Product Cards -->
       <div class="col-md-4">
-        <div class="card">
-          <img src="turmutic.jpg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Turmeric">
-          <div class="card-body">
+        <div class="card h-100" style="animation-delay: 0.1s;">
+          <img src="turmutic.jpg" class="card-img-top" alt="Organic Turmeric Powder">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Organic Turmeric Powder</h5>
             <p class="card-text text-muted">₹80 / 100g</p>
-            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+            <a class="btn btn-success mt-auto w-100" href="https://wa.me/919600715924?text=I'm%20interested%20in%20Organic%20Turmeric%20Powder%20from%20Native%20Masala.">Buy Now</a>
           </div>
         </div>
       </div>
-
-      <!-- Red Chili -->
       <div class="col-md-4">
-        <div class="card">
-          <img src="spice.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Red Chilli">
-          <div class="card-body">
+        <div class="card h-100" style="animation-delay: 0.2s;">
+          <img src="spice.jpeg" class="card-img-top" alt="Red Chilli Powder">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Red Chilli Powder</h5>
             <p class="card-text text-muted">₹70 / 100g</p>
-            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+            <a class="btn btn-success mt-auto w-100" href="https://wa.me/919600715924?text=I'm%20interested%20in%20Red%20Chilli%20Powder%20from%20Native%20Masala.">Buy Now</a>
           </div>
         </div>
       </div>
-
-      <!-- Garam Masala -->
       <div class="col-md-4">
-        <div class="card">
-          <img src="maslala.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Garam Masala">
-          <div class="card-body">
+        <div class="card h-100" style="animation-delay: 0.3s;">
+          <img src="maslala.jpeg" class="card-img-top" alt="Premium Garam Masala">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Premium Garam Masala</h5>
             <p class="card-text text-muted">₹120 / 100g</p>
-            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
+            <a class="btn btn-success mt-auto w-100" href="https://wa.me/919600715924?text=I'm%20interested%20in%20Premium%20Garam%20Masala%20from%20Native%20Masala.">Buy Now</a>
           </div>
         </div>
       </div>
-
-      <!-- Whole Spices -->
-      <div class="col-md-4">
-        <div class="card">
-          <img src="maslala.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Whole Spices">
-          <div class="card-body">
-            <h5 class="card-title">Whole Masala Mix</h5>
-            <p class="card-text text-muted">₹130 / 150g</p>
-            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Coriander -->
-      <div class="col-md-4">
-        <div class="card">
-          <img src="coriander.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Coriander">
-          <div class="card-body">
-            <h5 class="card-title">Coriander Powder</h5>
-            <p class="card-text text-muted">₹60 / 100g</p>
-            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Cumin -->
-      <div class="col-md-4">
-        <div class="card">
-          <img src="jira.jpeg?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cumin Seeds">
-          <div class="card-body">
-            <h5 class="card-title">Cumin Seeds (Jeera)</h5>
-            <p class="card-text text-muted">₹75 / 100g</p>
-            <button class="btn btn-success w-100" onclick="addToCart()">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-
+      <!-- Add remaining cards similarly -->
     </div>
   </div>
 
+  <!-- Full Product Price Table -->
+  <section id="all-products" class="bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Native Masala - Full Price List</h2>
+      <p class="text-center fst-italic">"Taste the tastes of Native"<br>No Preservatives or Food Coloring Added<br><strong>Courier charges extra</strong></p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped align-middle text-center">
+          <thead class="table-warning">
+            <tr>
+              <th>Item</th>
+              <th>25 gm</th>
+              <th>50 gm</th>
+              <th>100 gm</th>
+              <th>200 gm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Chilli Powder</td><td>₹15</td><td>₹24</td><td>₹44</td><td>₹84</td></tr>
+            <tr><td>Coriander Powder</td><td>₹10</td><td>₹14</td><td>₹26</td><td>₹49</td></tr>
+            <tr><td>Pepper Powder</td><td>₹31</td><td>₹51</td><td>₹96</td><td>₹184</td></tr>
+            <tr><td>Turmeric Powder</td><td>₹13</td><td>₹18</td><td>₹34</td><td>₹65</td></tr>
+            <tr><td>Kashmiri Chilli Powder</td><td>₹25</td><td>₹39</td><td>₹74</td><td>₹140</td></tr>
+            <tr><td>Cumin</td><td>₹27</td><td>₹46</td><td>₹87</td><td>₹166</td></tr>
+            <tr><td>Sambar Powder</td><td>₹18</td><td>₹31</td><td>₹58</td><td>₹113</td></tr>
+            <tr><td>Rasam Podi</td><td>₹22</td><td>₹41</td><td>₹80</td><td>₹152</td></tr>
+            <tr><td>Puli Kulambu Powder</td><td>₹17</td><td>₹28</td><td>₹52</td><td>₹97</td></tr>
+            <tr><td>Paruppu Podi</td><td>₹15</td><td>₹26</td><td>₹47</td><td>₹90</td></tr>
+            <tr><td>Idly Podi</td><td>₹15</td><td>₹26</td><td>₹47</td><td>₹90</td></tr>
+            <tr><td>Curry Leaf Powder</td><td>₹18</td><td>₹35</td><td>₹66</td><td>₹120</td></tr>
+            <tr><td>Chicken Kulambu Masala</td><td>₹19</td><td>₹35</td><td>₹65</td><td>₹120</td></tr>
+            <tr><td>Mutton Kulambu Masala</td><td>₹19</td><td>₹35</td><td>₹65</td><td>₹120</td></tr>
+            <tr><td>Fish Kulambu Masala</td><td>₹18</td><td>₹31</td><td>₹58</td><td>₹105</td></tr>
+            <tr><td>Egg Gravy Masala</td><td>₹17</td><td>₹31</td><td>₹58</td><td>₹105</td></tr>
+            <tr><td>Chicken Briyani Masala</td><td>₹25</td><td>₹48</td><td>₹92</td><td>₹175</td></tr>
+            <tr><td>Mutton Briyani Masala</td><td>₹25</td><td>₹48</td><td>₹92</td><td>₹175</td></tr>
+            <tr><td>Briyani Masala – Fish</td><td>₹25</td><td>₹48</td><td>₹92</td><td>₹175</td></tr>
+            <tr><td>Veg Briyani</td><td>₹25</td><td>₹48</td><td>₹92</td><td>₹175</td></tr>
+            <tr><td>65 Masala</td><td>₹16</td><td>₹29</td><td>₹55</td><td>₹100</td></tr>
+            <tr><td>Sukku Malli Coffee Powder</td><td>₹20</td><td>₹35</td><td>₹65</td><td>₹122</td></tr>
+            <tr><td>Garam Masala</td><td>₹22</td><td>₹40</td><td>₹79</td><td>₹150</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us -->
+  <section id="contact" class="bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Contact Us</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Talk to us:</label>
+            <p>+91 96007 15924</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Order via WhatsApp:</label>
+            <a href="https://wa.me/919600715924" class="btn btn-success w-100">Send Message</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
-    <p>© 2025 Masala Sale eCart. Crafted with ❤️ for spice lovers.</p>
+    <p>© 2025 Native Masala. Crafted with ❤️ for spice lovers.</p>
   </footer>
 
-  <!-- Bootstrap JS + Cart Logic -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    let cartItems = 0;
-    function addToCart() {
-      cartItems++;
-      document.getElementById("cartCount").textContent = cartItems;
-    }
+</body>
+</html>
