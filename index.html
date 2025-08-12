@@ -285,24 +285,40 @@
 
   function getPerView() {
     const w = window.innerWidth;
-    if (w >= 992) return 3;
-    if (w >= 576) return 2;
-    return 1;
+    if (w >= 992) return 3;   // desktop
+    if (w >= 576) return 2;   // tablet
+    return 1;                 // mobile
   }
 
   function build() {
     track.innerHTML = '';
     perView = getPerView();
+
+    // clone first 'perView' items for seamless loop
     const sequence = [...images, ...images.slice(0, perView)];
+
     for (const src of sequence) {
       const div = document.createElement('div');
       div.className = 'nm-slide';
+
       const img = document.createElement('img');
       img.src = src;
       img.alt = 'Native Masala product';
+
+      // ----- Lazy loading & fetch priority -----
+      // First screenful eager/high; rest lazy/low
+      const isAboveTheFold = track.children.length < (perView + 1);
+      img.loading = isAboveTheFold ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.setAttribute('fetchpriority', isAboveTheFold ? 'high' : 'low');
+      // Optional (helps CLS if you know dimensions)
+      // img.width = 1200;
+      // img.height = 800;
+
       div.appendChild(img);
       track.appendChild(div);
     }
+
     current = 0;
     translate();
   }
@@ -310,7 +326,7 @@
   function translate() {
     const first = track.querySelector('.nm-slide');
     if (!first) return;
-    const step = first.offsetWidth + 12;
+    const step = first.offsetWidth + 12; // slide width + CSS gap
     track.style.transform = `translateX(${-current * step}px)`;
   }
 
@@ -318,19 +334,23 @@
     stop();
     timer = setInterval(() => {
       current += 1;
+
+      // When we pass the last real image, snap back (seamless loop)
       if (current > images.length) {
         track.style.transition = 'none';
         current = 1;
         translate();
-        void track.offsetHeight;
+        void track.offsetHeight;          // force reflow
         track.style.transition = 'transform .6s ease';
       }
+
       translate();
-    }, 2500);
+    }, 2500); // change every 2.5s
   }
 
   function stop() { if (timer) clearInterval(timer); }
 
+  // Rebuild on breakpoint changes for 3/2/1 layout
   window.addEventListener('resize', () => {
     const newPerView = getPerView();
     if (newPerView !== perView) {
@@ -341,9 +361,11 @@
     }
   });
 
+  // Pause on hover
   slider.addEventListener('mouseenter', stop);
   slider.addEventListener('mouseleave', start);
 
+  // Init
   build();
   start();
 })();
