@@ -275,7 +275,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 (function () {
-  const images = Array.from({ length: 7 }, (_, i) => `images/${i + 1}.jpg`);
+  const images = Array.from({ length: 7 }, (_, i) => `images_optimized/${i + 1}.jpg`);
   const slider = document.getElementById('nmSlider');
   const track  = slider.querySelector('.nm-slider-track');
 
@@ -290,37 +290,89 @@
     return 1;                 // mobile
   }
 
+  // Map URL -> <img[]> so we can swap src when each URL finishes preloading
+  const urlToImgs = new Map();
+
   function build() {
     track.innerHTML = '';
+    urlToImgs.clear();
     perView = getPerView();
 
-    // clone first 'perView' items for seamless loop
+    // Build DOM with only the first "screenful" set to eager src.
+    // The rest get data-src and will be filled by the background queue.
     const sequence = [...images, ...images.slice(0, perView)];
-
-    for (const src of sequence) {
+    sequence.forEach((url, idx) => {
       const div = document.createElement('div');
       div.className = 'nm-slide';
 
       const img = document.createElement('img');
-      img.src = src;
       img.alt = 'Native Masala product';
-
-      // ----- Lazy loading & fetch priority -----
-      // First screenful eager/high; rest lazy/low
-      const isAboveTheFold = track.children.length < (perView + 1);
-      img.loading = isAboveTheFold ? 'eager' : 'lazy';
       img.decoding = 'async';
-      img.setAttribute('fetchpriority', isAboveTheFold ? 'high' : 'low');
-      // Optional (helps CLS if you know dimensions)
-      // img.width = 1200;
-      // img.height = 800;
+
+      const isAboveFold = idx < perView + 1; // first screenful + 1 for smoothness
+      if (isAboveFold) {
+        img.loading = 'eager';
+        img.setAttribute('fetchpriority', 'high');
+        img.src = url; // show immediately
+      } else {
+        img.loading = 'lazy';
+        img.setAttribute('fetchpriority', 'low');
+        img.setAttribute('data-src', url); // wait for queue to fill
+        if (!urlToImgs.has(url)) urlToImgs.set(url, []);
+        urlToImgs.get(url).push(img);
+      }
 
       div.appendChild(img);
       track.appendChild(div);
-    }
+    });
 
     current = 0;
     translate();
+
+    // Kick off the background queued preload (unique URLs only).
+    queuePreload(images);
+  }
+
+  // Sequential background preloader
+  function queuePreload(urls) {
+    let i = 0;
+
+    function loadNext() {
+      if (i >= urls.length) return;
+      const url = urls[i++];
+
+      const pic = new Image();
+      pic.decoding = 'async';
+      // even though we preload, keep network polite
+      try { pic.fetchPriority = 'low'; } catch (_) {}
+
+      pic.onload = pic.onerror = () => {
+        // Swap any placeholders that were waiting for this URL
+        const waiting = urlToImgs.get(url);
+        if (waiting && waiting.length) {
+          waiting.forEach(img => {
+            if (!img.src) {
+              img.src = url;
+              img.removeAttribute('data-src');
+            }
+          });
+          urlToImgs.delete(url);
+        }
+
+        // Continue queue (yield to browser if possible)
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadNext, { timeout: 200 });
+        } else {
+          setTimeout(loadNext, 30);
+        }
+      };
+
+      // Start loading
+      pic.src = url;
+    }
+
+    // Start after a tiny delay so layout/JS work settles
+    setTimeout(loadNext, 0);
   }
 
   function translate() {
@@ -335,17 +387,17 @@
     timer = setInterval(() => {
       current += 1;
 
-      // When we pass the last real image, snap back (seamless loop)
+      // Seamless loop: when we pass last real image, snap to 1
       if (current > images.length) {
         track.style.transition = 'none';
         current = 1;
         translate();
-        void track.offsetHeight;          // force reflow
+        void track.offsetHeight; // reflow
         track.style.transition = 'transform .6s ease';
       }
 
       translate();
-    }, 2500); // change every 2.5s
+    }, 2500);
   }
 
   function stop() { if (timer) clearInterval(timer); }
@@ -354,7 +406,7 @@
   window.addEventListener('resize', () => {
     const newPerView = getPerView();
     if (newPerView !== perView) {
-      build();
+      build();   // rebuild DOM & restart background queue
       start();
     } else {
       translate();
@@ -370,6 +422,7 @@
   start();
 })();
 </script>
+
 
 </body>
 </html>
