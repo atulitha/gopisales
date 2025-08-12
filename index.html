@@ -91,6 +91,14 @@
         transform: translateY(0);
       }
     }
+    /* === Slider styles === */
+.nm-slider { overflow: hidden; }
+.nm-slider-track { display: flex; gap: 12px; will-change: transform; transition: transform .6s ease; }
+.nm-slide { flex: 0 0 calc(100% / 3); }
+.nm-slide img { width: 100%; height: 240px; object-fit: cover; border-radius: .5rem; box-shadow: 0 6px 14px rgba(0,0,0,.08); }
+@media (max-width: 991.98px) { .nm-slide { flex-basis: 50%; } }
+@media (max-width: 575.98px) { .nm-slide { flex-basis: 100%; } }
+
   </style>
 </head>
 <body>
@@ -222,6 +230,16 @@
       </div>
     </div>
   </section>
+    <!-- Gallery Section -->
+  <section id="gallery">
+  <div class="container">
+    <h2 class="text-center mb-4">Our Fresh Picks</h2>
+    <div class="nm-slider" id="nmSlider">
+      <div class="nm-slider-track"></div>
+    </div>
+  </div>
+</section>
+
 
   <!-- Contact Us -->
   <section id="contact" class="bg-light">
@@ -255,5 +273,81 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function () {
+  const images = Array.from({ length: 7 }, (_, i) => `images/${i + 1}.jpg`);
+  const slider = document.getElementById('nmSlider');
+  const track  = slider.querySelector('.nm-slider-track');
+
+  let current = 0;
+  let perView = getPerView();
+  let timer;
+
+  function getPerView() {
+    const w = window.innerWidth;
+    if (w >= 992) return 3;
+    if (w >= 576) return 2;
+    return 1;
+  }
+
+  function build() {
+    track.innerHTML = '';
+    perView = getPerView();
+    const sequence = [...images, ...images.slice(0, perView)];
+    for (const src of sequence) {
+      const div = document.createElement('div');
+      div.className = 'nm-slide';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Native Masala product';
+      div.appendChild(img);
+      track.appendChild(div);
+    }
+    current = 0;
+    translate();
+  }
+
+  function translate() {
+    const first = track.querySelector('.nm-slide');
+    if (!first) return;
+    const step = first.offsetWidth + 12;
+    track.style.transform = `translateX(${-current * step}px)`;
+  }
+
+  function start() {
+    stop();
+    timer = setInterval(() => {
+      current += 1;
+      if (current > images.length) {
+        track.style.transition = 'none';
+        current = 1;
+        translate();
+        void track.offsetHeight;
+        track.style.transition = 'transform .6s ease';
+      }
+      translate();
+    }, 2500);
+  }
+
+  function stop() { if (timer) clearInterval(timer); }
+
+  window.addEventListener('resize', () => {
+    const newPerView = getPerView();
+    if (newPerView !== perView) {
+      build();
+      start();
+    } else {
+      translate();
+    }
+  });
+
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  build();
+  start();
+})();
+</script>
+
 </body>
 </html>
